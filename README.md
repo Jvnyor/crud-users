@@ -4,11 +4,11 @@
 - Username: root
 - Password: root
 
+#### Or use H2 Database (check the application.properties file)
+
 *src/main/resources/aplications.properties*
 
 ## Requests
-
-http://localhost:8080/ - URL Tomcat server
 
 #### JSON POST Method:
 ```
@@ -25,8 +25,6 @@ http://localhost:8080/ - URL Tomcat server
 /api/users/registration - Create a User Admin - POST
 
 /api/users/admin - Return list of all Users - GET 
-
-/api/users/admin/ - Return list of all Users - GET 
 
 /api/users/admin/{id} - Replace a User by Id - PUT
 
