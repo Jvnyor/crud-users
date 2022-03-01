@@ -58,6 +58,7 @@ class MainController {
 	    	log.info("User register success: {}",user);
 	    }
 	    userRegistration.createUser(user);
-	    return "register_success";
+	    return "login.html";
 	}
+	
 }
