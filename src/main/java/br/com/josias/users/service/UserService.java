@@ -1,9 +1,10 @@
 package br.com.josias.users.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,9 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.com.josias.users.model.User;
+import br.com.josias.users.model.dto.UserDTO;
 import br.com.josias.users.model.roles.UserRole;
 import br.com.josias.users.repository.UserRepository;
-import br.com.josias.users.model.dto.UserDTO;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -35,11 +36,11 @@ public class UserService implements UserDetailsService {
 							.orElseThrow(() -> new UsernameNotFoundException("Username not found"));
 	}
 	
-	public List<User> listAll() {
-		return userRepository.findAll();
+	public Page<User> listAll(Pageable pageable) {
+		return userRepository.findAll(pageable);
 	}
 	
-	public User findByUsername(String username) throws ResponseStatusException {
+	public User findByUsername(String username) {
 		return userRepository.findByUsername(username);
 	}
 	

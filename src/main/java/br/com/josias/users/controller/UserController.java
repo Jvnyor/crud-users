@@ -1,8 +1,9 @@
 package br.com.josias.users.controller;
 
-import java.util.List;
-
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,7 +21,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@Tag(name="crud-users")
+@Tag(name="CRUD Users")
 @RequestMapping("/api/users/admin")
 @CrossOrigin(origins="*")
 public class UserController {
@@ -33,8 +34,8 @@ public class UserController {
 	private final UserService userService;
 	
 	@GetMapping
-	public ResponseEntity<List<User>> listAllUsers() {
-		return ResponseEntity.ok(userService.listAll());
+	public ResponseEntity<Page<User>> listAllUsers(@ParameterObject Pageable pageable) {
+		return ResponseEntity.ok(userService.listAll(pageable));
 	}
 	
 	@GetMapping("/{id}")
@@ -47,14 +48,14 @@ public class UserController {
 	@Operation(summary = "Delete user by id",description="Delete user by Id")
 	public ResponseEntity<String> removeUser(@PathVariable Long id) throws Exception {
 		userService.delete(id);
-		return ResponseEntity.ok("Usuário deletado com sucesso!");
+		return ResponseEntity.ok("User deleted!");
 	}
 	
 	@PutMapping("/{id}")
 	@Operation(summary = "replace customer by id",description="Replace Customer by Id")
 	public ResponseEntity<String> replace(@PathVariable Long id,@RequestBody UserDTO userDTO) {
 		userService.replace(id, userDTO);
-		return ResponseEntity.ok("Usuário alterado com sucesso!");
+		return ResponseEntity.ok("User replaced!");
 	}
 	
 }
