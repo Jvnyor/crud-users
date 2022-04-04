@@ -1,6 +1,5 @@
 package br.com.josias.users.config;
 
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,13 +31,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 				.authorizeRequests()
-				.antMatchers("/").permitAll()
-				.antMatchers("/register").permitAll()
+				.antMatchers("/h2").permitAll()
+				.antMatchers("/h2/**").permitAll()
+				.antMatchers("/h2/**.html").permitAll()
+				.antMatchers("/h2/**.css").permitAll()
+				.antMatchers("/h2/**.js").permitAll()
+				.antMatchers("/h2/**.**").permitAll()
 				.antMatchers("/api/users/registration").permitAll()
-				.antMatchers(HttpMethod.GET,"/api/users/admin/").hasRole("ADMIN")
-				.antMatchers(HttpMethod.GET,"/api/users/admin/**").hasRole("ADMIN")
-				.antMatchers(HttpMethod.POST,"/api/users/admin/").hasRole("ADMIN")
-				.antMatchers(HttpMethod.PUT,"/api/users/admin/**").hasRole("ADMIN")
+				.antMatchers("/swagger-ui.html").permitAll()
+				.antMatchers("/swagger-ui/**").permitAll()
+				.antMatchers("/swagger-ui/**.css").permitAll()
+				.antMatchers("/swagger-ui/**.js").permitAll()
+				.antMatchers("/swagger-ui/**.png").permitAll()
+				.antMatchers("/swagger-ui/**.svg").permitAll()
+				.antMatchers("/swagger-ui/**.**").permitAll()
+				.antMatchers("/v3/api-docs").permitAll()
+				.antMatchers("/v3/api-docs/**").permitAll()
+				.antMatchers("/v3/api-docs/swagger-config").permitAll()
+				.antMatchers("/v3/api-docs/swagger-config/**").permitAll()
+				.antMatchers("/v3/api-docs/swagger-config/**.css").permitAll()
+				.antMatchers("/v3/api-docs/swagger-config/**.js").permitAll()
+				.antMatchers("/v3/api-docs/swagger-config/**.png").permitAll()
+				.antMatchers("/v3/api-docs/swagger-config/**.svg").permitAll()
+				.antMatchers("/v3/api-docs/swagger-config/**.**").permitAll()
 				.and()
 				.authorizeRequests()
 				.anyRequest()
