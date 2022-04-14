@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.josias.users.model.User;
 import br.com.josias.users.model.dto.UserDTO;
+import br.com.josias.users.model.dto.UserResponseDTO;
 import br.com.josias.users.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@Tag(name="CRUD Users")
+@Tag(name = "CRUD Users")
 @RequestMapping("/api/users/admin")
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 public class UserController {
 
 	@Autowired
@@ -32,30 +32,36 @@ public class UserController {
 	}
 
 	private final UserService userService;
-	
+
 	@GetMapping
-	public ResponseEntity<Page<User>> listAllUsers(@ParameterObject Pageable pageable) {
+	public ResponseEntity<Page<UserResponseDTO>> listAllUsers(@ParameterObject Pageable pageable) {
 		return ResponseEntity.ok(userService.listAll(pageable));
 	}
-	
-	@GetMapping("/{id}")
-	@Operation(summary = "Returns a user by id",description="Returns a user by Id")
-	public ResponseEntity<User> findUserById(@PathVariable long id) throws Exception {
+
+	@GetMapping("/id/{id}")
+	@Operation(summary = "Returns a user by id", description = "Returns a user by Id")
+	public ResponseEntity<UserResponseDTO> findUserById(@PathVariable long id) throws Exception {
 		return ResponseEntity.ok(userService.findById(id));
 	}
-	
+
+	@GetMapping("/username/{username}")
+	@Operation(summary = "Returns a user by username", description = "Returns a user by Username")
+	public ResponseEntity<UserResponseDTO> findUserByUsername(@PathVariable String username) {
+		return ResponseEntity.ok(userService.findByUsername(username));
+	}
+
 	@DeleteMapping("/{id}")
-	@Operation(summary = "Delete user by id",description="Delete user by Id")
+	@Operation(summary = "Delete user by id", description = "Delete user by Id")
 	public ResponseEntity<String> removeUser(@PathVariable Long id) throws Exception {
 		userService.delete(id);
 		return ResponseEntity.ok("User deleted!");
 	}
-	
+
 	@PutMapping("/{id}")
-	@Operation(summary = "replace customer by id",description="Replace Customer by Id")
-	public ResponseEntity<String> replace(@PathVariable Long id,@RequestBody UserDTO userDTO) {
+	@Operation(summary = "replace customer by id", description = "Replace Customer by Id")
+	public ResponseEntity<String> replace(@PathVariable Long id, @RequestBody UserDTO userDTO) {
 		userService.replace(id, userDTO);
 		return ResponseEntity.ok("User replaced!");
 	}
-	
+
 }

@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 public class User implements UserDetails {
 
 	/**
-	 * 
+	 * @author Josias Junior https://github.com/Jvnyor
 	 */
 	private static final long serialVersionUID = -7690446800700101710L;
 

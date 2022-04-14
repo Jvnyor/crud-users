@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import br.com.josias.users.model.User;
 import br.com.josias.users.model.dto.UserDTO;
+import br.com.josias.users.model.dto.UserResponseDTO;
 import br.com.josias.users.model.roles.UserRole;
 import br.com.josias.users.repository.UserRepository;
 
@@ -36,18 +37,24 @@ public class UserService implements UserDetailsService {
 							.orElseThrow(() -> new UsernameNotFoundException("Username not found"));
 	}
 	
-	public Page<User> listAll(Pageable pageable) {
-		return userRepository.findAll(pageable);
+	public Page<UserResponseDTO> listAll(Pageable pageable) {
+		Page<User> result = userRepository.findAll(pageable);
+		Page<UserResponseDTO> page = result.map(x -> new UserResponseDTO(x));
+		return page;
 	}
 	
-	public User findByUsername(String username) {
-		return userRepository.findByUsername(username);
+	public UserResponseDTO findByUsername(String username) {
+		User user = userRepository.findByUsername(username);
+		UserResponseDTO userResponseDTO = new UserResponseDTO(user);
+		return userResponseDTO;
 	}
 	
-	public User findById(Long id) {
-		return userRepository.findById(id)
+	public UserResponseDTO findById(Long id) {
+		User user = userRepository.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,
 																"User not found"));
+		UserResponseDTO userResponseDTO = new UserResponseDTO(user);
+		return userResponseDTO;
 	}
 	
 	public void save(UserDTO userDTO) {
@@ -68,7 +75,7 @@ public class UserService implements UserDetailsService {
 		
 	}
 	
-	public void replace(Long id,UserDTO userDTO) {
+	public void replace(Long id, UserDTO userDTO) {
 		PasswordEncoder passwordEncoder = PasswordEncoderFactories
 				.createDelegatingPasswordEncoder();
 		
@@ -85,7 +92,7 @@ public class UserService implements UserDetailsService {
 	}
 	
 	public void delete(Long id) {
-		userRepository.delete(findById(id));
+		userRepository.delete(userRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST)));
 	}
 	
 	private boolean usernameExist(String username) {
