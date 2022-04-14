@@ -28,9 +28,9 @@
 
 /api/users/admin/{id} - Replace a User by Id - PUT
 
-/api/users/admin/{id} - Return a User by Id - GET
+/api/users/admin/id/{id} - Return a User by Id - GET
 
-/api/users/admin/find?name={name} - Return a User by name - GET
+/api/users/admin/username/{username} - Return a User by Username - GET
 
 /api/users/admin/{id} - Delete User by Id - DELETE
 
