@@ -1,4 +1,34 @@
-# Rest API to create user admin login and authentication user admin
+# Rest API to create user admin login and authenticate user admin
+
+Clone the project
+
+```
+git clone https://github.com/Jvnyor/sigabem.git
+```
+
+Download Maven dependencies
+
+```
+mvn clean install
+```
+
+Start Spring Boot Application
+
+```
+mvn spring-boot:run
+```
+
+Generate JAR file
+
+```
+mvn clean package
+```
+
+Command to start Application using JAR file
+
+```
+java -jar target/frete-0.0.1-SNAPSHOT.jar
+```
 
 ## Database MySQL User Root
 - Username: root
