@@ -3,7 +3,7 @@
 Clone the project
 
 ```
-git clone https://github.com/Jvnyor/sigabem.git
+git clone https://github.com/Jvnyor/crud-users.git
 ```
 
 Download Maven dependencies
