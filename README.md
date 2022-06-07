@@ -27,7 +27,7 @@ mvn clean package
 Command to start Application using JAR file
 
 ```
-java -jar target/frete-0.0.1-SNAPSHOT.jar
+java -jar target/users-0.0.1-SNAPSHOT.jar
 ```
 
 ## Database MySQL User Root
